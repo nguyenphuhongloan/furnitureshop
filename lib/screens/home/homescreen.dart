@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              
               Header(),
               Section(
                   'Categories',

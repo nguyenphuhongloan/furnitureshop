@@ -104,20 +104,17 @@ class FurnitureGridItem extends StatelessWidget {
                       direction: Axis.horizontal,
                       allowHalfRating: true,
                       itemCount: 5,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      itemSize: 28,
                       itemBuilder: (context, _) => Icon(
                         Icons.star,
+                        
                         color: Colors.amber,
                       ),
                       onRatingUpdate: (rating) {
                         print(rating);
                       },
                     ),
-                      SizedBox(width: 5),
-                      Text(
-                        '${item.rating}',
-                        style: TextStyle(fontSize: 10),
-                      ),
+                      
                     ],
                   ),
             )
