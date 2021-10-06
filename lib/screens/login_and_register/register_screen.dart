@@ -30,6 +30,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 25,
               ),
               Input(
+                label: "Fullname",
+                hinttext: "Fullname",
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Input(
                 label: "Password",
                 hinttext: "Password", 
                 obscureText: true,),
