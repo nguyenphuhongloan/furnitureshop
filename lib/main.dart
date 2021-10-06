@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:shop/screens/home/homescreen.dart';
-import 'package:shop/screens/login_and_register/login_screen.dart';
-import 'package:shop/screens/login_and_register/register_screen.dart';
-
+import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/app.dart';
+import 'package:shop/providers/user_provider.dart';
 import 'constants/colors.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  await GetStorage.init();
+  final previousCheck = Provider.debugCheckInvalidValueType;
+  Provider.debugCheckInvalidValueType = <T>(T value) {
+    if (value is UserProvider) return;
+  };
+  runApp(MultiProvider(
+    providers: [
+      Provider<UserProvider>(
+        create: (_) => userProvider,
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,9 +38,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primarySwatch: Colors.blue,
       ),
-      
-      home: const RegisterScreen(),
+      home: App(),
     );
   }
 }
-

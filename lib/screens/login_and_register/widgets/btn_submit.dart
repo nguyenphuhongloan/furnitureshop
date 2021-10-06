@@ -8,21 +8,21 @@ class BtnSubmit extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
   final String text;
-  final GestureTapCallback? onTap;
+  final Function? onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        onTap!();
+      },
       child: Container(
-        decoration: BoxDecoration(
-            color: primaryColor, borderRadius: BorderRadius.circular(20)),
+        decoration: BoxDecoration(color: primaryColor, borderRadius: BorderRadius.circular(20)),
         width: double.infinity,
         height: 55,
         child: Center(
             child: Text(
           text,
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
         )),
       ),
     );

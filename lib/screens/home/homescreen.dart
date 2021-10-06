@@ -19,14 +19,21 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    super.initState();
+    // Call api get my profile
+
+    // After call, map response to user provider
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BotNavBar(),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: [
-              
               Header(),
               Section(
                   'Categories',
@@ -51,10 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: e.title,
                           ))
                       .toList()),
-              Section("Trending Furniture",
-                  Fake.trending.map((e) => ImageCard(e)).toList()),
-              Section("Featured Furniture",
-                  Fake.featured.map((e) => ImageCard(e)).toList()),
+              Section("Trending Furniture", Fake.trending.map((e) => ImageCard(e)).toList()),
+              Section("Featured Furniture", Fake.featured.map((e) => ImageCard(e)).toList()),
             ],
           ),
         ),
