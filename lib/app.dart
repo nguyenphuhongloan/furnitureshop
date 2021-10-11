@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shop/data/local/user_local.dart';
-import 'package:shop/providers/user_provider.dart';
-import 'package:shop/screens/home/homescreen.dart';
-import 'package:shop/screens/login_and_register/login_screen.dart';
+
+import 'package:shop/src/screens/home/homescreen.dart';
+
+import 'src/data/local/user_local.dart';
+import 'src/screens/login_and_register/login_screen.dart';
 
 class App extends StatefulWidget {
   @override
@@ -13,6 +13,8 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return UserLocal().getAccessToken().length == 0 ? LoginScreen() : HomeScreen();
+    return UserLocal().getAccessToken().length == 0
+        ? LoginScreen()
+        : HomeScreen();
   }
 }

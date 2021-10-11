@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/app.dart';
-import 'package:shop/providers/user_provider.dart';
-import 'constants/colors.dart';
+import 'package:shop/src/routes/app_pages.dart';
+import 'package:shop/src/screens/login_and_register/login_screen.dart';
+
+import 'src/constants/colors.dart';
+import 'src/providers/user_provider.dart';
 
 void main() async {
   await GetStorage.init();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
   final previousCheck = Provider.debugCheckInvalidValueType;
   Provider.debugCheckInvalidValueType = <T>(T value) {
     if (value is UserProvider) return;
   };
+
   runApp(MultiProvider(
     providers: [
       Provider<UserProvider>(
@@ -38,7 +47,8 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primarySwatch: Colors.blue,
       ),
-      home: App(),
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
     );
   }
 }
