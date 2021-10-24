@@ -40,9 +40,10 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                   SingleChildScrollView(
                     child: Column(
                       children: [
-                        FittedBox(
-                          child: Image.network(widget.product.image),
-                          fit: BoxFit.fill,
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                            child: Image.network(widget.product.image,
+                            fit: BoxFit.fill),
                         ),
                         WhiteCard(
                           size: size,
