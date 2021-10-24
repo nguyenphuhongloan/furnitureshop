@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shop/src/data/fake.dart';
+import 'package:get/get.dart';
+import 'package:shop/src/controller/cart_controller.dart';
+import 'package:shop/src/controller/product_controller.dart';
+import 'package:shop/src/models/product.dart';
 import 'package:shop/src/screens/category/widgets/furniture_gird_item.dart';
 import 'package:shop/src/screens/category/widgets/header_sliver.dart';
-import 'package:shop/src/widgets/bottom_navigation_bar.dart';
+import 'package:shop/src/widgets/dialog_process.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -12,10 +15,21 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  final _productController = Get.put(ProductController());
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    //_cartController.initialController();
+    super.initState();
+    _productController.initialController();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BotNavBar(),
+    //if (_isLoading == true) showDialogLoading(context);
+
+     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
@@ -28,23 +42,25 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 maxExtent: 120,
               ),
             ),
-            SliverGrid.count(
-              crossAxisCount: 2,
-              childAspectRatio: 0.65,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              children: Fake.furniture.asMap().entries.map((f) {
-                return FurnitureGridItem(
-                    item: f.value,
-                    margin: EdgeInsets.only(
-                      left: f.key.isEven ? 16 : 0,
-                      right: f.key.isOdd ? 16 : 0,
-                    ));
-              }).toList(),
-            )
+            StreamBuilder(
+                stream: _productController.getStreamProduct,
+                builder: (context, AsyncSnapshot<List<Product>> snapshot) {
+                  if (snapshot.hasData) {
+                    return SliverGrid.count(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.65,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16,
+                        children: snapshot.data!
+                            .map((e) => FurnitureGridItem(product: e))
+                            .toList());
+                  }
+                  return SliverGrid.count(crossAxisCount: 2, children: []);
+                  /* */
+                })
           ],
         ),
       ),
-    );
+    ); 
   }
 }

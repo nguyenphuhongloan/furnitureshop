@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:shop/src/data/fake.dart';
 import 'package:shop/src/screens/home/widgets/searchbar.dart';
-import 'package:shop/src/screens/home/widgets/section.dart';
 import 'package:shop/src/widgets/cart.dart';
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
+  @override
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    
     return Container(
       width: size.width,
       padding: EdgeInsets.symmetric(horizontal: 28, vertical: 18),
@@ -16,7 +21,8 @@ class Header extends StatelessWidget {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text("Furniture shop", style: TextStyle(fontSize: 28, height: 1)),
-            Cart(numberOfItemsInCart: Fake.numberOfItemsInCart),
+           
+            Cart(),
           ]),
           Text(
             'Get unique furniture for your home',

@@ -4,14 +4,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop/src/constants/colors.dart';
 
 class BotNavBar extends StatefulWidget {
-  const BotNavBar({Key? key}) : super(key: key);
+  final Function handlePressed;
+  final int index;
+  const BotNavBar({required this.handlePressed, required this.index});
 
   @override
   _BotNavBarState createState() => _BotNavBarState();
 }
 
 class _BotNavBarState extends State<BotNavBar> {
-  int _selectedIndex = 0;
   List<dynamic> menuItems = [
     {
       'icon': 'assets/icons/home.svg',
@@ -26,6 +27,7 @@ class _BotNavBarState extends State<BotNavBar> {
       'label': 'Messages',
     },
     {
+      
       'icon': 'assets/icons/wallet.svg',
       'label': 'Wallet',
     },
@@ -60,15 +62,27 @@ class _BotNavBarState extends State<BotNavBar> {
                 ),
               ))
           .toList(),
-      currentIndex: _selectedIndex,
+      currentIndex: widget.index,
       selectedItemColor: primaryColor,
-      onTap: onTappedItem,
+      onTap: (int index) => widget.handlePressed(index),
     );
   }
 
-  void onTappedItem(int value) {
+  /* void onTappedItem(int value) {
     setState(() {
       _selectedIndex = value;
+      switch (value) {
+        case 0:
+          Get.toNamed(Routes.ROOT);
+          break;
+        case 1:
+          AuthRepository().getAllProduct();
+          break;
+        case 4:
+          Get.toNamed(Routes.PROFILE);
+          break;
+        default:
+      }
     });
-  }
+  } */
 }

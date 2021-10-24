@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:http/http.dart';
 import 'package:shop/src/constants/api_gateway.dart';
-import 'package:shop/src/constants/constants.dart';
 import 'package:shop/src/data/local/user_local.dart';
 import 'package:shop/src/data/repository/base_repository.dart';
+import 'package:shop/src/models/product.dart';
 import 'package:shop/src/models/user_model.dart';
 import 'package:shop/src/providers/user_provider.dart';
 
@@ -28,7 +26,6 @@ class AuthRepository {
       UserLocal().saveAccessToken(myToken);
       return 200;
     }
-    print("CODE = " + response.statusCode.toString());
     return response.statusCode;
   }
 
@@ -58,17 +55,27 @@ class AuthRepository {
     return response.statusCode;
   }
 
-  Future<void> getMyProfile() async {
-    String token = UserLocal().getAccessToken();
-    Response response =
-        await BaseRepository().getProfile(ApiGateway.myProfile, token);
-    print("CODE = " + response.statusCode.toString());
+  Future<UserModel?> getMyProfile() async {
+    Response response = await BaseRepository().get(ApiGateway.myProfile);
     if (response.statusCode == 200) {
       dynamic jsonRes = jsonDecode(response.body);
       UserModel myProfile = UserModel.fromMap(jsonRes['data']);
-      userProvider.setMyToken(token);
       userProvider.setMyProfile = myProfile;
-      print(myProfile.toString());
+      return myProfile;
     }
+    return null;
+  }
+
+  Future<List<Product>> getAllProduct() async {
+    Response response = await BaseRepository().get(ApiGateway.product);
+    List<Product> listProduct = [];
+    if (response.statusCode == 200) {
+      dynamic jsonRes = jsonDecode(response.body);
+      for (var i = 0; i < jsonRes['data'].length; i++) {
+        Product product = Product.fromMap(jsonRes['data'][i]);
+        listProduct.add(product);
+      }
+    }
+    return listProduct;
   }
 }

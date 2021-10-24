@@ -9,10 +9,12 @@ class Input extends StatelessWidget {
     this.hinttext = "",
     this.obscureText = false,
     this.onChange,
+    this.validator,
   }) : super(key: key);
   final String hinttext;
   final bool obscureText;
   final String label;
+  final Function? validator;
   final Function? onChange;
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,9 @@ class Input extends StatelessWidget {
           ),
           onChanged: (val) {
             onChange!(val);
+          },
+          validator: (val) {
+            validator!(val);
           },
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:shop/src/screens/home/homescreen.dart';
+import 'package:shop/src/screens/navigation/navigation.dart';
 
 import 'src/data/local/user_local.dart';
 import 'src/screens/login_and_register/login_screen.dart';
@@ -15,6 +15,6 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return UserLocal().getAccessToken().length == 0
         ? LoginScreen()
-        : HomeScreen();
+        : Navigation();
   }
 }

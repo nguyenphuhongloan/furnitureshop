@@ -5,4 +5,7 @@ class ApiGateway {
 
   // User
   static const myProfile = 'user/profile';
+
+  //Product
+  static const product = 'product';
 }

@@ -7,7 +7,6 @@ import 'package:shop/src/data/repository/auth_repository.dart';
 import 'package:shop/src/routes/app_pages.dart';
 import 'package:shop/src/screens/login_and_register/widgets/btn_submit.dart';
 import 'package:shop/src/screens/login_and_register/widgets/input.dart';
-import 'package:shop/src/screens/login_and_register/register_screen.dart';
 import 'package:shop/src/screens/login_and_register/widgets/text_fommated.dart';
 import 'package:shop/src/widgets/dialog_notication.dart';
 import 'package:shop/src/widgets/dialog_process.dart';
@@ -44,6 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     _email = val.toString().trim();
                   });
                 },
+                validator: (val)
+                  => val!.trim().length == 0 ? "Email must not null": null,
               ),
               SizedBox(
                 height: 25,
@@ -57,6 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     _password = val.toString().trim();
                   });
                 },
+                validator: (val) =>
+                    val!.trim().length < 6 ? "Password must not null" : null,
               ),
               SizedBox(
                 height: 40,

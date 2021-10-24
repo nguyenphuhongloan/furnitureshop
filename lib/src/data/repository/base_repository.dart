@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shop/src/constants/constants.dart';
+import 'package:shop/src/data/local/user_local.dart';
 
 class BaseRepository {
   get(String name, [String? params]) async {
@@ -24,7 +25,6 @@ class BaseRepository {
       Uri.http(baseUrl, '/' + name),
       headers: getHeader(),
       body: jsonEncode(body),
-      
     );
   }
 
@@ -43,21 +43,13 @@ class BaseRepository {
     );
   }
 
-  getHeader([String? token]) {
+  getHeader() {
     return <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Connection': 'keep-alive',
       'Accept': '*/*',
       'Accept-Encoding': 'gzip, deflate, br',
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer ${UserLocal().getAccessToken()}',
     };
-  }
-
-  getProfile(String name, String token) async{
-    http.Response response = await http.get(
-       Uri.http(baseUrl, '/'+name),
-      headers: getHeader(token),
-    );
-    return response;
   }
 }

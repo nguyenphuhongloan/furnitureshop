@@ -1,16 +1,17 @@
 class Item {
   String name;
   String imagePath;
-  int? discountPercent;
+ int? discountPercent;
   double originalPrice;
-  double rating;
-
-  Item({
-    required this.name,
-    required this.imagePath,
-    required this.originalPrice,
-    required this.rating,
-    this.discountPercent,
+  double? rating;
+  String? discription;
+  Item(
+      {required this.name,
+      required this.imagePath,
+      required this.originalPrice,
+      this.rating,
+      this.discountPercent,
+      this.discription
   });
 
   double get price {

@@ -9,7 +9,6 @@ import 'package:shop/src/screens/home/widgets/header.dart';
 import 'package:shop/src/screens/home/widgets/image_card.dart';
 import 'package:shop/src/screens/home/widgets/promotion_card.dart';
 import 'package:shop/src/screens/home/widgets/section.dart';
-import 'package:shop/src/widgets/bottom_navigation_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,17 +20,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    super.initState();
     AuthRepository().getMyProfile();
+    setState(() {
+      
+    }); 
     // Call api get my profile
 
     // After call, map response to user provider
+    super.initState();
+    
   }
-
+   
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BotNavBar(),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -74,5 +77,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onCategorySelected(Category e) {
     Get.to(CategoryScreen());
+    
   }
 }

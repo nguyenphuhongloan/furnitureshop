@@ -3,7 +3,7 @@ import 'package:shop/src/models/item.dart';
 import 'package:shop/src/models/promotion.dart';
 
 class Fake {
-  static int numberOfItemsInCart = 1;
+  
   static List<Category> categories = [
     Category('assets/icons/chest.svg', 'Living Room'),
     Category('assets/icons/bathtub.svg', 'Bathroom'),

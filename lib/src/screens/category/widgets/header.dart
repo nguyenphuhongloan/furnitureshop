@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shop/src/data/fake.dart';
 import 'package:shop/src/screens/category/widgets/action_button.dart';
 import 'package:shop/src/widgets/cart.dart';
 
 import 'filter_modal_bottom_sheet.dart';
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
   const Header({Key? key}) : super(key: key);
+
+  @override
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  int numberOfItemInCart = 0;
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      /* numberOfItemInCart = CartModel.cart.length; */
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +69,7 @@ class Header extends StatelessWidget {
                         'assets/icons/search.svg',
                         height: 18,
                       ),
-                      Cart(
-                        numberOfItemsInCart: Fake.numberOfItemsInCart,
-                      ),
+                      Cart(),
                     ],
                   ),
                 )
